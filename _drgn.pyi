@@ -855,6 +855,20 @@ class FindObjectFlags(enum.Flag):
 class Thread:
     """A thread in a program."""
 
+    name: Optional[bytes]
+    """
+    Thread name, or ``None`` if unknown.
+
+    See `PR_SET_NAME
+    <https://man7.org/linux/man-pages/man2/prctl.2.html#:~:text=PR_SET_NAME>`_
+    and `/proc/[pid]/comm
+    <https://man7.org/linux/man-pages/man5/proc.5.html#:~:text=%2Fproc%2F%5Bpid%5D%2Fcomm>`_.
+
+    .. note::
+
+        Linux userspace core dumps only save the name of the main thread, so
+        :attr:`name` will be ``None`` for other threads.
+    """
     tid: Final[int]
     """Thread ID (as defined by :manpage:`gettid(2)`)."""
     object: Final[Object]

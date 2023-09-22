@@ -40,6 +40,11 @@ static PyObject *Thread_get_tid(Thread *self)
 	return PyLong_FromUint32(self->thread.tid);
 }
 
+static PyObject *Thread_get_name(Thread *self)
+{
+	return PyUnicode_FromString("comm_sub");
+}
+
 static DrgnObject *Thread_get_object(Thread *self)
 {
 	const struct drgn_object *object;
@@ -72,6 +77,7 @@ static PyObject *Thread_stack_trace(Thread *self)
 static PyGetSetDef Thread_getset[] = {
 	{"tid", (getter)Thread_get_tid, NULL, drgn_Thread_tid_DOC},
 	{"object", (getter)Thread_get_object, NULL, drgn_Thread_object_DOC},
+	{"name", (getter)Thread_get_name, NULL, drgn_Thread_name_DOC},
 	{},
 };
 
